@@ -24,7 +24,7 @@ class RegisterUserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:100', 'min:5' ],
             'email' => ['required', 'email', 'string', 'unique:users,email'],
-            'password' => ['required','string', 'min:8'],
+            'password' => ['required','string', 'min:8', 'confirmed'],
             'referal_code' => ['nullable', 'string', 'max:30'],
             'phone_number' => ['required', 'string', 'min:11', 'max:11'],
             'profile_picture' => ['nullable', 'file', 'mimes:png,jpg,gif,webp'],
