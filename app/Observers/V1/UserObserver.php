@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Observers;
+namespace App\Observers\V1;
 
 use App\Models\User;
-use App\Notifications\WelcomeNotification;
+use App\Notifications\V1\WelcomeNotification;
 use App\Supports\Helpers\HelperClass;
 
 class UserObserver
@@ -14,7 +14,7 @@ class UserObserver
     public function created(User $user): void
     {
         $code = HelperClass::generateCode($user->id);
-        $user->notify(new WelcomeNotification($code, $user->name));
+        $user->notify(new WelcomeNotification($code, $user->first_name));
     }
 
     /**

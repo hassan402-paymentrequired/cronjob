@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Auth;
 
-class Vendor extends Model
+class Booking extends Model
 {
     use HasUlids;
 
     /**
-     * Get the user that owns the Vendor
+     * Get the user that owns the Booking
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -21,12 +20,14 @@ class Vendor extends Model
         return $this->belongsTo(User::class);
     }
 
-    // protected static function booted()
-    // {
-    //     static::created(function ($vendor) {
-    //         $vendor->user_id = Auth::id();
-    //     });
-    // }
 
-
+    /**
+     * Get the offer that owns the Booking
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function offer(): BelongsTo
+    {
+        return $this->belongsTo(ProviderOffer::class);
+    }
 }

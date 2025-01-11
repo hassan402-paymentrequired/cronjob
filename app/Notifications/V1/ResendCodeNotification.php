@@ -3,11 +3,10 @@
 namespace App\Notifications\V1;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeNotification extends Notification implements ShouldQueue
+class ResendCodeNotification extends Notification
 {
     use Queueable;
 
@@ -35,12 +34,14 @@ class WelcomeNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('Dear '. $this->user,)
-            ->line('A warm welcome to chow!')
-            ->line('We have sent a One-Time Password (OTP) to your email address. Please enter the OTP below to verify your account.')
+            ->subject('Resend Verification Code')
+            ->greeting('Hello '.$notifiable->name.'!')
+            ->line('We noticed you requested a new verification code.')
+            ->line('We have sent a One-Time Password (OTP) to your email address. Please enter the OTP below to Proceed.')
             ->line('Your OTP is: ' . $this->code)
-            ->line('If you did not receive the OTP, please click the button above to resend it.')
-            ->line('Thank you for choosing our chow!');
+            ->line('If you did not request this, please ignore this email.')
+            ->salutation('Thank you for using our application!');
+
     }
 
     /**

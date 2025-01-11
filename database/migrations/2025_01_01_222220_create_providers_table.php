@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vendors', function (Blueprint $table) {
+        Schema::create('providers', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignUlid('user_id')->index()->constrained('users')->cascadeOnDelete();
-            $table->string('name');
             $table->string('official_email');
+            $table->string("image")->nullable();
             $table->string('official_phone_number');
             $table->string('address');
+            $table->string("latitude")->nullable();
+            $table->string("longitude")->nullable();
             $table->boolean('is_active')->default(true);
-            $table->string('description');
-            $table->string('banner');
             $table->decimal('commission_rate')->default(200.00)->nullable();
-            $table->enum('vendor_type', ['restaurant', 'salon', 'barber', 'supermarket']);
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('providers');
     }
 };

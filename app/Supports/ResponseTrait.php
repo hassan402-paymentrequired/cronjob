@@ -90,17 +90,7 @@ trait ResponseTrait
         );
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
-    protected function toMeta(Request $request): array
-    {
-        return [
-            'copyright' => 'Copyright ' . date('Y') . ' ' . env('app_name', 'Arbitbox'),
-            'timestamp' => $this->getTimestampInMilliseconds()
-        ];
-    }
+
 
     /**
      * @param string $error
@@ -110,6 +100,16 @@ trait ResponseTrait
     {
         return new JsonResponse([
             'error' => $error,
+            'meta' => ['timestamp' => $this->getTimestampInMilliseconds()],
+        ], $status);
+    }
+
+
+    protected function responseWithSuccessMessage(string $msg,int $status):JsonResponse
+    {
+        return new JsonResponse([
+            'success' => true,
+            'message' => $msg,
             'meta' => ['timestamp' => $this->getTimestampInMilliseconds()],
         ], $status);
     }

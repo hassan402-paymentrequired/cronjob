@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewVendorRequest extends FormRequest
+class ProviderOfferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,11 @@ class NewVendorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:120'],
-            'official_email' => ['required', 'string', 'email', 'unique:vendors,official_email'],
-            'official_phone_number' => ['required', 'string'],
+            'price' => ['required', 'string'],
+            'service' => ['required', 'exists:services,id', 'string', 'max:100'],
             'description' => ['required', 'string'],
-            'banner' => ['file', 'mimes:png,jpg'],
-            'vendor_type' => ['required', 'string'],
-            'address' => ['required', 'string']
+            'name' => ['required', 'string', 'max:225'],
+            'image' => ['required', 'file', 'mimes:png,jpg,jpeg,webp'],
         ];
     }
 }
