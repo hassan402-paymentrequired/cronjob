@@ -25,3 +25,5 @@ Route::middleware('auth')->group(function(){
     Route::get("/user", [AuthenticateUserController::class, "authenticatedUser"])->name("user.index");
     Route::post("/resend-code", [RegisterUserController::class, "requestNewOtp"])->name("user.resend.code");
 });
+
+
